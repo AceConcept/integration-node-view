@@ -1,0 +1,20 @@
+.shell {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-shell);
+}
+
+.artboard {
+  position: relative;
+  overflow: hidden;
+  font-family: var(--font-family);
+  background-color: #ececec;
+  background-image: url("../assets/truest-bg.png");
+  background-repeat: no-repeat;
+  background-size: 160rem 90rem; /* 2560×1440px @ 16px root — full artboard */
+  background-position: top left;
+  box-shadow: 0 0.25rem 2rem rgb(0 0 0 / 8%);
+}

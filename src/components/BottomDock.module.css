@@ -1,0 +1,172 @@
+.dockWrap {
+  position: absolute;
+  left: var(--sidebar-width);
+  right: 0;
+  bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.dockStack {
+  position: relative;
+  pointer-events: auto;
+}
+
+.hint {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(100% + 2.5rem);
+  display: flex;
+  align-items: stretch;
+  gap: 0.5rem; /* 8px @ 16px root */
+  pointer-events: none;
+}
+
+.hintAccent {
+  width: 0.375rem; /* 6px @ 16px root */
+  min-width: 0.375rem;
+  flex-shrink: 0;
+  align-self: stretch;
+  background: #a1a1a1;
+}
+
+.hintBody {
+  margin: 0;
+  padding: 0.75rem 1.5rem; /* 12px 24px @ 16px root */
+  background: #585858;
+  opacity: 0.9;
+  color: #ffffff;
+  font-size: var(--font-size-sm);
+  font-weight: 400;
+  line-height: 1.25;
+  white-space: nowrap;
+  box-shadow: 0 0.25rem 0.25rem 0 rgb(0 0 0 / 25%);
+}
+
+.dockLead {
+  min-width: 5.4375rem; /* 87px @ 16px root */
+  flex-shrink: 0;
+}
+
+.dock {
+  pointer-events: auto;
+  display: flex;
+  align-items: stretch;
+  box-sizing: border-box;
+  width: 128.5625rem; /* 2057px @ 16px root */
+  min-width: 128.5625rem;
+  min-height: 9.5rem; /* 152px @ 16px root */
+  gap: 0.75rem; /* 12px @ 16px root */
+  padding: 0.9375rem 1.8125rem; /* 15px top/bottom, 29px left/right @ 16px root */
+  border-radius: 1.25rem; /* 20px pill corners */
+  background: #121212;
+  box-shadow: 0 0.375rem 1.5rem rgb(0 0 0 / 45%);
+  overflow-x: auto;
+}
+
+.card {
+  width: 20.625rem; /* 330px @ 16px root */
+  flex-shrink: 0;
+  display: flex;
+  border-radius: 0.5rem; /* 8px @ 16px root */
+  background: url("../assets/dock/card-bg.png") no-repeat center / 100% 100%;
+}
+
+.cardInner {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem; /* 14px @ 16px root */
+  width: 100%;
+  height: 100%;
+  padding: 1.125rem; /* 18px @ 16px root */
+  cursor: grab;
+  user-select: none;
+}
+
+.cardInner:active {
+  cursor: grabbing;
+}
+
+.iconBox {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 5rem; /* 80px @ 16px root */
+  height: 5.25rem; /* 84px total @ 16px root */
+  box-shadow: 0 0.25rem 0.25rem 0 rgb(0 0 0 / 25%); /* Y 4px, blur 4px, #000 @ 25% */
+}
+
+.iconBoxInner {
+  display: grid;
+  place-items: center;
+  width: 5rem; /* 80px */
+  height: 5rem; /* 80px */
+  flex-shrink: 0;
+  background: #2d2d2d;
+}
+
+.dockIcon {
+  width: 3.5rem; /* 56px @ 16px root */
+  height: 3.5rem;
+}
+
+.iconAccent {
+  width: 100%;
+  height: 0.25rem; /* 4px @ 16px root */
+  background: #fc6d26;
+  flex-shrink: 0;
+}
+
+.cardText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.0625rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.cardTitle {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.25;
+}
+
+.cardPath {
+  font-size: var(--font-size-sm);
+  font-weight: 400;
+  color: #b0b0b0;
+  line-height: 1.25;
+}
+
+.cardLabel {
+  font-size: var(--font-size-sm);
+  font-weight: 400;
+  color: #d8d8d8;
+  line-height: 1.25;
+}
+
+.addBtn {
+  margin-left: auto;
+  align-self: center;
+  border: none;
+  background: transparent;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.addIcon {
+  width: 1.5rem; /* 24px @ 16px root */
+  height: 1.5rem;
+  display: block;
+}
+
+.addBtn:hover {
+  opacity: 0.75;
+}

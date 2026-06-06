@@ -1,0 +1,36 @@
+:root {
+  --color-bg-shell: #ececec;
+  --color-bg-canvas: #f4f4f5;
+  --color-bg-sidebar: #ffffff;
+  --color-bg-node: #ffffff;
+  --color-border-node: #e0e0e0;
+  --color-border-slot: #c8c8c8;
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #6b6b6b;
+  --color-text-muted: #8a8a8a;
+  --color-accent: #4a90e2;
+  --color-accent-soft: #e8f2fc;
+  --color-line: #b8b8b8;
+  --color-line-active: #4a90e2;
+  --color-dock: #1a1a1a;
+  --color-dock-card: #2a2a2a;
+  --color-pill-dark: #2d2d2d;
+  --color-nav-active: #f0f0f0;
+  --color-onboarding: #d6ebff;
+
+  --font-family: "Inter", "Inter Variable", system-ui, sans-serif;
+  --font-size-min: 1.125rem; /* 18px @ 16px root */
+  --font-size-sm: 1.125rem; /* 18px */
+  --font-size-md: 1.25rem; /* 20px */
+  --font-size-lg: 1.375rem; /* 22px */
+  --font-size-xl: 1.5rem; /* 24px */
+
+  --sidebar-width: 25.5rem; /* 408px @ 16px root */
+  --node-outer-size: 7.875rem; /* 126px @ 16px root */
+  --node-inner-size: 5rem; /* 80px @ 16px root */
+  --node-frame: 0.9375rem; /* 15px @ 16px root */
+  --node-frame-color: rgb(186 186 186 / 60%);
+  --node-inner-shadow: 0 0 0.25rem 0 rgb(137 137 137 / 25%); /* blur 4px, #898989 @ 25% */
+  --node-inner-stroke: inset 0 0 0 0.0625rem #cecece; /* 1px inside, #CECECE */
+  --dock-height: 7.5rem; /* 120px */
+}

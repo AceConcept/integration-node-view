@@ -1,0 +1,56 @@
+.node {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.nodeFrame {
+  width: var(--node-outer-size);
+  height: var(--node-outer-size);
+  box-sizing: border-box;
+  flex-shrink: 0;
+  border: var(--node-frame) solid var(--node-frame-color);
+  display: grid;
+  place-items: center;
+}
+
+.iconBox {
+  width: var(--node-inner-size);
+  height: var(--node-inner-size);
+  flex-shrink: 0;
+  background: var(--color-bg-node);
+  box-shadow: var(--node-inner-shadow), var(--node-inner-stroke);
+  display: grid;
+  place-items: center;
+}
+
+.githubIcon {
+  width: 2.5rem; /* 40px */
+  height: 2.5rem;
+  color: #24292f;
+}
+
+.gitlabIcon {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.labels {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 8rem;
+}
+
+.title {
+  font-size: 1.25rem; /* 20px @ 16px root */
+  font-weight: 600;
+  line-height: 1.2;
+  color: #383838;
+}
+
+.subtitle {
+  font-size: 1.125rem; /* 18px @ 16px root */
+  color: #383838;
+  line-height: 1.3;
+}

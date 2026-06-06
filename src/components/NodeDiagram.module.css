@@ -1,0 +1,107 @@
+.diagram {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 5.875rem; /* clear 94px top bar */
+  padding-bottom: 11rem; /* clearance above dock */
+}
+
+.diagramBody {
+  position: relative;
+  width: 58.75rem; /* 940px @ 16px root */
+  min-height: 47.625rem; /* 762px — 3 node rows + slot with 86px gaps */
+  margin: 0 auto;
+}
+
+.lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.line {
+  stroke: #bababa;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
+
+.lineActive {
+  stroke: #bababa;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
+
+.nodeRows {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5.375rem; /* 86px @ 16px root */
+}
+
+.row {
+  position: relative;
+  height: var(--node-outer-size);
+}
+
+/* Anchor icon-frame center to diagram coordinates (not label box center) */
+.diagramNode {
+  position: absolute;
+  top: 50%;
+  transform: translate(calc(var(--node-outer-size) / -2), -50%);
+}
+
+.nodeX90 {
+  left: 5.625rem; /* 90px @ 16px root */
+}
+
+.nodeX470 {
+  left: 29.375rem; /* 470px @ 16px root — diagram + dock center axis */
+}
+
+.nodeX850 {
+  left: 53.125rem; /* 850px @ 16px root */
+}
+
+.slotRow {
+  position: relative;
+  z-index: 2;
+  margin-top: 5.375rem; /* 86px @ 16px root */
+  height: var(--node-outer-size);
+}
+
+.slotAnchor {
+  position: absolute;
+  left: 29.375rem; /* 470px — aligned with trunk + dock center */
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.emptySlot {
+  width: var(--node-outer-size);
+  height: var(--node-outer-size);
+  box-sizing: border-box;
+  border: var(--node-frame) dashed var(--node-frame-color);
+  display: grid;
+  place-items: center;
+  background: rgb(255 255 255 / 60%);
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.slotRow:hover .emptySlot,
+.slotRowOver .emptySlot {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+}
+
+.slotPlus {
+  font-size: var(--font-size-xl);
+  color: var(--color-text-muted);
+  line-height: 1;
+}
