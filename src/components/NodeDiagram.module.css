@@ -88,16 +88,44 @@
 }
 
 .slotFrameFilled {
+  position: relative;
   border-style: solid;
   background: transparent;
   padding: 0;
-  cursor: pointer;
-  font: inherit;
-  color: inherit;
 }
 
-.slotFrameFilled:hover .slotIconBox {
-  opacity: 0.85;
+.emptySlotBtn {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 1.5rem; /* 24px @ 16px root */
+  height: 1.5rem; /* 24px @ 16px root */
+  min-width: 1.5rem;
+  min-height: 1.5rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  transform: translate(-50%, calc(50% + 0.625rem)); /* +10px below center on bottom edge */
+  cursor: pointer;
+}
+
+.emptySlotIcon {
+  width: 1.5rem; /* 24px @ 16px root */
+  height: 1.5rem; /* 24px @ 16px root */
+  display: block;
+  flex-shrink: 0;
+}
+
+.emptySlotBtn:hover:not(:disabled) {
+  filter: brightness(1.15);
+}
+
+.emptySlotBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .slotRow:hover .slotFrame:not(.slotFrameFilled),

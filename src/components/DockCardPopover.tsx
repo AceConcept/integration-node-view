@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import type { MouseEvent, PointerEvent as ReactPointerEvent } from "react";
 import gitlabIcon from "../assets/dock/gitlab.svg";
 import styles from "./DockCardPopover.module.css";
 
@@ -23,19 +24,23 @@ function ExternalLinkIcon() {
 
 function CloseIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden>
+    <svg className={styles.closeIcon} viewBox="0 0 24 24" aria-hidden>
       <path
         fill="none"
         stroke="currentColor"
         strokeWidth="1.5"
         strokeLinecap="round"
-        d="M4 4l8 8M12 4l-8 8"
+        d="M7 7l10 10M17 7L7 17"
       />
     </svg>
   );
 }
 
 export function DockCardPopover({ onClose }: DockCardPopoverProps) {
+  const stopBubble = (e: ReactPointerEvent | MouseEvent) => {
+    e.stopPropagation();
+  };
+
   return (
       <motion.div
         className={styles.popover}
@@ -45,21 +50,24 @@ export function DockCardPopover({ onClose }: DockCardPopoverProps) {
         transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
         role="dialog"
         aria-label="Gitlab integration details"
+        onPointerDown={stopBubble}
+        onClick={stopBubble}
       >
         <div className={styles.panel}>
+          <button
+            type="button"
+            className={styles.closeBtn}
+            aria-label="Close"
+            onClick={onClose}
+          >
+            <CloseIcon />
+          </button>
+
           <div className={styles.header}>
             <div className={styles.headerBrand}>
               <img src={gitlabIcon} alt="" className={styles.brandIcon} />
-              <span className={styles.brandTitle}>Gitlab</span>
+              <span className={styles.brandTitle}>Gitlab Integration</span>
             </div>
-            <button
-              type="button"
-              className={styles.closeBtn}
-              aria-label="Close"
-              onClick={onClose}
-            >
-              <CloseIcon />
-            </button>
           </div>
 
           <p className={styles.description}>
@@ -68,15 +76,10 @@ export function DockCardPopover({ onClose }: DockCardPopoverProps) {
             AI-powered DevSecOps platform.
           </p>
 
-          <a
-            className={styles.docLink}
-            href="https://docs.gitlab.com/"
-            target="_blank"
-            rel="noreferrer"
-          >
+          <span className={styles.docLink}>
             <ExternalLinkIcon />
             View Documentation
-          </a>
+          </span>
 
           <h3 className={styles.sectionTitle}>Connect</h3>
           <p className={styles.sectionBody}>

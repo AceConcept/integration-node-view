@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useState, type DragEvent } from "react";
 import gitlabIcon from "../assets/dock/gitlab.svg";
+import emptySlotIcon from "../assets/dock/empty-slot.svg";
 import { IntegrationNode } from "./IntegrationNode";
 import styles from "./NodeDiagram.module.css";
 
@@ -16,8 +17,10 @@ export type DockCardPayload = {
 type NodeDiagramProps = {
   linked: boolean;
   linkedCard: DockCardPayload | null;
+  disconnecting?: boolean;
   onLink: (card: DockCardPayload) => void;
   onUnlink: () => void;
+  onDisconnectComplete?: () => void;
 };
 
 /**
@@ -67,9 +70,29 @@ function trunkProgressAtY(y: number) {
 const BRANCH4_DELAY = TRUNK_DURATION * trunkProgressAtY(Y.branchNode4Junction);
 const BRANCH1_DELAY = TRUNK_DURATION * trunkProgressAtY(Y.node3Mid);
 
+/** Reverse: branches retract as the trunk passes each junction on the way back to the slot. */
+const UNLINK_BRANCH1_DELAY =
+  TRUNK_DURATION * (1 - trunkProgressAtY(Y.node3Mid));
+const UNLINK_BRANCH4_DELAY =
+  TRUNK_DURATION * (1 - trunkProgressAtY(Y.branchNode4Junction));
+
+const LINK_ANIMATION_DURATION = Math.max(
+  TRUNK_DURATION,
+  BRANCH4_DELAY + BRANCH_DURATION,
+  BRANCH1_DELAY + BRANCH_DURATION,
+);
+
+const UNLINK_ANIMATION_DURATION = LINK_ANIMATION_DURATION;
+
 const lineEase = [0.42, 0, 0.2, 1] as const;
 
-export function NodeDiagram({ linked, onLink, onUnlink }: NodeDiagramProps) {
+export function NodeDiagram({
+  linked,
+  disconnecting = false,
+  onLink,
+  onUnlink,
+  onDisconnectComplete,
+}: NodeDiagramProps) {
   const [dragOver, setDragOver] = useState(false);
 
   const allowDragCursor = (e: DragEvent) => {
@@ -139,8 +162,13 @@ export function NodeDiagram({ linked, onLink, onUnlink }: NodeDiagramProps) {
               stroke={ACTIVE_STROKE}
               strokeWidth={LINE_WIDTH}
               initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
+              animate={{ pathLength: disconnecting ? 0 : 1 }}
               transition={{ duration: TRUNK_DURATION, ease: lineEase }}
+              onAnimationComplete={() => {
+                if (disconnecting) {
+                  onDisconnectComplete?.();
+                }
+              }}
             />
             <motion.path
               d={PATHS.branchNode4}
@@ -149,9 +177,12 @@ export function NodeDiagram({ linked, onLink, onUnlink }: NodeDiagramProps) {
               stroke={ACTIVE_STROKE}
               strokeWidth={LINE_WIDTH}
               initial={{ pathLength: 0, opacity: 0 }}
-              animate={{ pathLength: 1, opacity: 1 }}
+              animate={{
+                pathLength: disconnecting ? 0 : 1,
+                opacity: disconnecting ? 0 : 1,
+              }}
               transition={{
-                delay: BRANCH4_DELAY,
+                delay: disconnecting ? UNLINK_BRANCH4_DELAY : BRANCH4_DELAY,
                 duration: BRANCH_DURATION,
                 ease: lineEase,
               }}
@@ -163,9 +194,12 @@ export function NodeDiagram({ linked, onLink, onUnlink }: NodeDiagramProps) {
               stroke={ACTIVE_STROKE}
               strokeWidth={LINE_WIDTH}
               initial={{ pathLength: 0, opacity: 0 }}
-              animate={{ pathLength: 1, opacity: 1 }}
+              animate={{
+                pathLength: disconnecting ? 0 : 1,
+                opacity: disconnecting ? 0 : 1,
+              }}
               transition={{
-                delay: BRANCH1_DELAY,
+                delay: disconnecting ? UNLINK_BRANCH1_DELAY : BRANCH1_DELAY,
                 duration: BRANCH_DURATION,
                 ease: lineEase,
               }}
@@ -213,12 +247,7 @@ export function NodeDiagram({ linked, onLink, onUnlink }: NodeDiagramProps) {
       >
         <div className={`${styles.diagramNode} ${styles.nodeX470}`}>
           {linked ? (
-            <button
-              type="button"
-              className={`${styles.slotFrame} ${styles.slotFrameFilled}`}
-              onClick={onUnlink}
-              aria-label="Remove integration from slot"
-            >
+            <div className={`${styles.slotFrame} ${styles.slotFrameFilled}`}>
               <motion.div
                 className={styles.slotIconBox}
                 initial={{ opacity: 0, scale: 0.85 }}
@@ -235,7 +264,21 @@ export function NodeDiagram({ linked, onLink, onUnlink }: NodeDiagramProps) {
                 </div>
                 <span className={styles.slotIconAccent} aria-hidden />
               </motion.div>
-            </button>
+              <button
+                type="button"
+                className={styles.emptySlotBtn}
+                onClick={onUnlink}
+                disabled={disconnecting}
+                aria-label="Empty slot"
+              >
+                <img
+                  src={emptySlotIcon}
+                  alt=""
+                  className={styles.emptySlotIcon}
+                  draggable={false}
+                />
+              </button>
+            </div>
           ) : (
             <div className={styles.slotFrame} aria-label="Drop integration here">
               <span className={styles.slotPlus}>+</span>
@@ -248,4 +291,4 @@ export function NodeDiagram({ linked, onLink, onUnlink }: NodeDiagramProps) {
   );
 }
 
-export { DRAG_TYPE };
+export { DRAG_TYPE, LINK_ANIMATION_DURATION, UNLINK_ANIMATION_DURATION };

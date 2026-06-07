@@ -70,8 +70,12 @@
   border-radius: 0;
 }
 
-.integrationsBtn {
+.integrationsAnchor {
   position: relative;
+  z-index: 1;
+}
+
+.integrationsBtn {
   display: flex;
   align-items: center;
   box-sizing: border-box;
@@ -120,6 +124,6 @@
   filter: brightness(1.08);
 }
 
-.integrationsBtnOpen {
+.integrationsAnchor:has([role="dialog"]) {
   z-index: 20;
 }
