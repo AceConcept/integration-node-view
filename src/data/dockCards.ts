@@ -57,3 +57,7 @@ export const DOCK_CARDS: DockCardPayload[] = [
 export function integrationTitle(card: DockCardPayload): string {
   return `${card.title} Integration`;
 }
+
+export function findDockCardById(id: string): DockCardPayload | undefined {
+  return DOCK_CARDS.find((card) => card.id === id);
+}

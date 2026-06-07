@@ -92,6 +92,12 @@
   border-style: solid;
   background: transparent;
   padding: 0;
+  transition: opacity 0.25s ease;
+}
+
+.slotFrameDisconnecting {
+  opacity: 0.45;
+  pointer-events: none;
 }
 
 .emptySlotBtn {
@@ -119,13 +125,8 @@
   flex-shrink: 0;
 }
 
-.emptySlotBtn:hover:not(:disabled) {
+.emptySlotBtn:hover {
   filter: brightness(1.15);
-}
-
-.emptySlotBtn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
 }
 
 .slotRow:hover .slotFrame:not(.slotFrameFilled),

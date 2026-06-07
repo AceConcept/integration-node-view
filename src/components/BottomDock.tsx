@@ -9,11 +9,24 @@ const CARDS = DOCK_CARDS;
 
 type BottomDockProps = {
   disabled?: boolean;
+  hintPhase?: "idle" | "loading" | "success" | "disconnecting";
   onCardClick?: (card: DockCardPayload) => void;
   containerRef?: RefObject<HTMLDivElement | null>;
 };
 
-export function BottomDock({ disabled, onCardClick, containerRef }: BottomDockProps) {
+const HINT_MESSAGES = {
+  idle: "Drag an item into the node slot to begin integration.",
+  loading: "Loading...",
+  success: "Integration successful",
+  disconnecting: "Disconnecting...",
+} as const;
+
+export function BottomDock({
+  disabled,
+  hintPhase = "idle",
+  onCardClick,
+  containerRef,
+}: BottomDockProps) {
   const [draggingCardId, setDraggingCardId] = useState<string | null>(null);
   const skipClickRef = useRef(false);
 
@@ -78,9 +91,7 @@ export function BottomDock({ disabled, onCardClick, containerRef }: BottomDockPr
       <div className={styles.dockStack}>
         <div className={styles.hint} role="status">
           <span className={styles.hintAccent} aria-hidden />
-          <p className={styles.hintBody}>
-            Drag an item into the node slot to begin integration.
-          </p>
+          <p className={styles.hintBody}>{HINT_MESSAGES[hintPhase]}</p>
           <span className={styles.hintAccent} aria-hidden />
         </div>
         <motion.div

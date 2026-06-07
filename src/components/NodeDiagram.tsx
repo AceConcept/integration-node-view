@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { useState, type DragEvent } from "react";
-import gitlabIcon from "../assets/dock/gitlab.svg";
 import emptySlotIcon from "../assets/dock/empty-slot.svg";
 import { IntegrationNode } from "./IntegrationNode";
 import styles from "./NodeDiagram.module.css";
@@ -20,6 +19,7 @@ export type DockCardPayload = {
 type NodeDiagramProps = {
   linked: boolean;
   linkedCard: DockCardPayload | null;
+  instantLink?: boolean;
   disconnecting?: boolean;
   onLink: (card: DockCardPayload) => void;
   onUnlink: () => void;
@@ -92,6 +92,7 @@ const lineEase = [0.42, 0, 0.2, 1] as const;
 export function NodeDiagram({
   linked,
   linkedCard,
+  instantLink = false,
   disconnecting = false,
   onLink,
   onUnlink,
@@ -165,9 +166,13 @@ export function NodeDiagram({
               fill="none"
               stroke={ACTIVE_STROKE}
               strokeWidth={LINE_WIDTH}
-              initial={{ pathLength: 0 }}
+              initial={{ pathLength: instantLink ? 1 : 0 }}
               animate={{ pathLength: disconnecting ? 0 : 1 }}
-              transition={{ duration: TRUNK_DURATION, ease: lineEase }}
+              transition={
+                instantLink && !disconnecting
+                  ? { duration: 0 }
+                  : { duration: TRUNK_DURATION, ease: lineEase }
+              }
               onAnimationComplete={() => {
                 if (disconnecting) {
                   onDisconnectComplete?.();
@@ -180,16 +185,20 @@ export function NodeDiagram({
               fill="none"
               stroke={ACTIVE_STROKE}
               strokeWidth={LINE_WIDTH}
-              initial={{ pathLength: 0, opacity: 0 }}
+              initial={{ pathLength: instantLink ? 1 : 0, opacity: instantLink ? 1 : 0 }}
               animate={{
                 pathLength: disconnecting ? 0 : 1,
                 opacity: disconnecting ? 0 : 1,
               }}
-              transition={{
-                delay: disconnecting ? UNLINK_BRANCH4_DELAY : BRANCH4_DELAY,
-                duration: BRANCH_DURATION,
-                ease: lineEase,
-              }}
+              transition={
+                instantLink && !disconnecting
+                  ? { duration: 0 }
+                  : {
+                      delay: disconnecting ? UNLINK_BRANCH4_DELAY : BRANCH4_DELAY,
+                      duration: BRANCH_DURATION,
+                      ease: lineEase,
+                    }
+              }
             />
             <motion.path
               d={PATHS.branchNode1}
@@ -197,16 +206,20 @@ export function NodeDiagram({
               fill="none"
               stroke={ACTIVE_STROKE}
               strokeWidth={LINE_WIDTH}
-              initial={{ pathLength: 0, opacity: 0 }}
+              initial={{ pathLength: instantLink ? 1 : 0, opacity: instantLink ? 1 : 0 }}
               animate={{
                 pathLength: disconnecting ? 0 : 1,
                 opacity: disconnecting ? 0 : 1,
               }}
-              transition={{
-                delay: disconnecting ? UNLINK_BRANCH1_DELAY : BRANCH1_DELAY,
-                duration: BRANCH_DURATION,
-                ease: lineEase,
-              }}
+              transition={
+                instantLink && !disconnecting
+                  ? { duration: 0 }
+                  : {
+                      delay: disconnecting ? UNLINK_BRANCH1_DELAY : BRANCH1_DELAY,
+                      duration: BRANCH_DURATION,
+                      ease: lineEase,
+                    }
+              }
             />
           </>
         )}
@@ -251,16 +264,18 @@ export function NodeDiagram({
       >
         <div className={`${styles.diagramNode} ${styles.nodeX470}`}>
           {linked ? (
-            <div className={`${styles.slotFrame} ${styles.slotFrameFilled}`}>
+            <div
+              className={`${styles.slotFrame} ${styles.slotFrameFilled} ${disconnecting ? styles.slotFrameDisconnecting : ""}`}
+            >
               <motion.div
                 className={styles.slotIconBox}
-                initial={{ opacity: 0, scale: 0.85 }}
+                initial={instantLink ? false : { opacity: 0, scale: 0.85 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.35, ease: "easeOut" }}
+                transition={{ duration: instantLink ? 0 : 0.35, ease: "easeOut" }}
               >
                 <div className={styles.slotIconBoxInner}>
                   <img
-                    src={linkedCard?.icon ?? gitlabIcon}
+                    src={linkedCard?.icon}
                     alt=""
                     className={styles.slotDockIcon}
                     draggable={false}
@@ -276,7 +291,7 @@ export function NodeDiagram({
                 type="button"
                 className={styles.emptySlotBtn}
                 onClick={onUnlink}
-                disabled={disconnecting}
+                aria-disabled={disconnecting}
                 aria-label="Empty slot"
               >
                 <img

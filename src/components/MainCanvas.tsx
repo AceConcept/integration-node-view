@@ -11,6 +11,7 @@ import styles from "./MainCanvas.module.css";
 type MainCanvasProps = {
   linkedCard: DockCardPayload | null;
   selectedCard: DockCardPayload;
+  instantLink?: boolean;
   onLink: (card: DockCardPayload) => void;
   disconnecting: boolean;
   onStartDisconnect: () => void;
@@ -25,6 +26,7 @@ type MainCanvasProps = {
 export function MainCanvas({
   linkedCard,
   selectedCard,
+  instantLink = false,
   onLink,
   disconnecting,
   onStartDisconnect,
@@ -153,6 +155,7 @@ export function MainCanvas({
       <NodeDiagram
         linked={linkedCard !== null}
         linkedCard={linkedCard}
+        instantLink={instantLink}
         disconnecting={disconnecting}
         onLink={onLink}
         onUnlink={onStartDisconnect}
