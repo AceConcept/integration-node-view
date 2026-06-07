@@ -6,6 +6,7 @@ type IntegrationNodeProps = {
   subtitle: string;
   variant?: "github" | "gitlab";
   className?: string;
+  titleClassName?: string;
 };
 
 export function IntegrationNode({
@@ -13,6 +14,7 @@ export function IntegrationNode({
   subtitle,
   variant = "github",
   className,
+  titleClassName,
 }: IntegrationNodeProps) {
   return (
     <div className={[styles.node, className].filter(Boolean).join(" ")}>
@@ -26,7 +28,9 @@ export function IntegrationNode({
         </div>
       </div>
       <div className={styles.labels}>
-        <span className={styles.title}>{title}</span>
+        <span className={[styles.title, titleClassName].filter(Boolean).join(" ")}>
+          {title}
+        </span>
         <span className={styles.subtitle}>{subtitle}</span>
       </div>
     </div>

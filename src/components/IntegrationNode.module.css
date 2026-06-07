@@ -49,6 +49,12 @@
   color: #383838;
 }
 
+.titleWrap {
+  max-width: 10.625rem; /* 170px @ 16px root */
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
 .subtitle {
   font-size: 1.125rem; /* 18px @ 16px root */
   color: #383838;

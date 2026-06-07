@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useState, type DragEvent } from "react";
 import emptySlotIcon from "../assets/dock/empty-slot.svg";
 import { IntegrationNode } from "./IntegrationNode";
+import integrationNodeStyles from "./IntegrationNode.module.css";
 import styles from "./NodeDiagram.module.css";
 
 const DRAG_TYPE = "application/vnd.integration-node.card";
@@ -229,29 +230,30 @@ export function NodeDiagram({
         <div className={styles.row}>
           <IntegrationNode
             className={`${styles.diagramNode} ${styles.nodeX90}`}
-            title="node-1"
-            subtitle="Main Codebase"
+            title="Staging/Release Upstream"
+            subtitle="External repo"
+            titleClassName={integrationNodeStyles.titleWrap}
           />
           <IntegrationNode
             className={`${styles.diagramNode} ${styles.nodeX470}`}
-            title="node-2"
-            subtitle="Main Codebase"
+            title="Core"
+            subtitle="Internal Monorepo"
           />
         </div>
 
         <div className={styles.row}>
           <IntegrationNode
             className={`${styles.diagramNode} ${styles.nodeX470}`}
-            title="node-3"
-            subtitle="Main Codebase"
+            title="Integration Router"
+            subtitle="Aggregator"
           />
         </div>
 
         <div className={styles.row}>
           <IntegrationNode
             className={`${styles.diagramNode} ${styles.nodeX850}`}
-            title="node-4"
-            subtitle="Main Codebase"
+            title="Public API"
+            subtitle="Webhook Services"
           />
         </div>
       </div>
