@@ -72,7 +72,6 @@
 
 .integrationsBtn {
   position: relative;
-  overflow: hidden;
   display: flex;
   align-items: center;
   box-sizing: border-box;
@@ -119,4 +118,8 @@
 
 .integrationsBtn:hover {
   filter: brightness(1.08);
+}
+
+.integrationsBtnOpen {
+  z-index: 20;
 }

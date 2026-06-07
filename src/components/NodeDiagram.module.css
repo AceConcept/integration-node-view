@@ -32,7 +32,7 @@
 }
 
 .lineActive {
-  stroke: #bababa;
+  stroke: var(--color-line-active);
   stroke-linecap: square;
   stroke-linejoin: miter;
 }
@@ -76,14 +76,7 @@
   height: var(--node-outer-size);
 }
 
-.slotAnchor {
-  position: absolute;
-  left: 29.375rem; /* 470px — aligned with trunk + dock center */
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.emptySlot {
+.slotFrame {
   width: var(--node-outer-size);
   height: var(--node-outer-size);
   box-sizing: border-box;
@@ -94,10 +87,52 @@
   transition: border-color 0.2s, background 0.2s;
 }
 
-.slotRow:hover .emptySlot,
-.slotRowOver .emptySlot {
+.slotFrameFilled {
+  border-style: solid;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+.slotFrameFilled:hover .slotIconBox {
+  opacity: 0.85;
+}
+
+.slotRow:hover .slotFrame:not(.slotFrameFilled),
+.slotRowOver .slotFrame:not(.slotFrameFilled) {
   border-color: var(--color-accent);
   background: var(--color-accent-soft);
+}
+
+.slotIconBox {
+  display: flex;
+  flex-direction: column;
+  width: 5rem; /* 80px — matches dock icon tile */
+  height: 5.25rem; /* 84px @ 16px root */
+  box-shadow: 0 0.25rem 0.25rem 0 rgb(0 0 0 / 25%);
+}
+
+.slotIconBoxInner {
+  display: grid;
+  place-items: center;
+  width: 5rem;
+  height: 5rem;
+  flex-shrink: 0;
+  background: #2d2d2d;
+}
+
+.slotDockIcon {
+  width: 3.5rem; /* 56px — matches dock cards */
+  height: 3.5rem;
+}
+
+.slotIconAccent {
+  width: 100%;
+  height: 0.25rem; /* 4px @ 16px root */
+  background: #fc6d26;
+  flex-shrink: 0;
 }
 
 .slotPlus {

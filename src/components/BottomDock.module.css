@@ -90,6 +90,24 @@
   cursor: grabbing;
 }
 
+.cardInnerDragging {
+  cursor: grabbing;
+}
+
+:global(body.dockDragging),
+:global(body.dockDragging *) {
+  cursor: grabbing !important;
+}
+
+.dragGhost {
+  position: fixed;
+  top: 0;
+  left: -9999px;
+  opacity: 1 !important;
+  pointer-events: none;
+  z-index: 9999;
+}
+
 .iconBox {
   display: flex;
   flex-direction: column;

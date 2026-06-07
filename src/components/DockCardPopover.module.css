@@ -1,0 +1,124 @@
+.popover {
+  position: absolute;
+  top: calc(100% + 0.75rem); /* 12px below trigger */
+  right: 0;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 21.875rem; /* 350px @ 16px root */
+  pointer-events: auto;
+}
+
+.panel {
+  width: 100%;
+  padding: 1.5rem; /* 24px */
+  border: 0.0625rem solid #e0e0e0; /* 1px */
+  border-radius: 0.75rem; /* 12px */
+  background: #ffffff;
+  box-shadow: 0 0.25rem 1rem rgb(0 0 0 / 12%);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem; /* 20px */
+}
+
+.headerBrand {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-width: 0;
+}
+
+.brandIcon {
+  width: 1.75rem; /* 28px */
+  height: 1.75rem;
+  flex-shrink: 0;
+}
+
+.brandTitle {
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.25;
+}
+
+.closeBtn {
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+
+.closeBtn:hover {
+  opacity: 0.65;
+}
+
+.description {
+  margin: 0 0 1rem;
+  font-size: var(--font-size-sm);
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  line-height: 1.45;
+}
+
+.docLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-size: var(--font-size-sm);
+  font-weight: 400;
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+
+.docLink:hover {
+  color: var(--color-text-secondary);
+}
+
+.docLinkIcon {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+.sectionTitle {
+  margin: 0 0 0.5rem;
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.25;
+}
+
+.sectionBody {
+  margin: 0 0 1.5rem;
+  font-size: var(--font-size-sm);
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  line-height: 1.45;
+}
+
+.addBtn {
+  width: 100%;
+  padding: 0.875rem 1rem; /* 14px 16px */
+  border: 0.0625rem solid #d0d0d0;
+  border-radius: 0.5rem;
+  background: #ffffff;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.addBtn:hover {
+  border-color: #b8b8b8;
+  color: var(--color-text-secondary);
+}
