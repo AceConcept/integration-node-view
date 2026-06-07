@@ -1,26 +1,14 @@
 import { motion } from "framer-motion";
 import type { MouseEvent, PointerEvent as ReactPointerEvent } from "react";
-import gitlabIcon from "../assets/dock/gitlab.svg";
+import { integrationTitle } from "../data/dockCards";
+import { IntegrationDocLink } from "./IntegrationDocLink";
+import type { DockCardPayload } from "./NodeDiagram";
 import styles from "./DockCardPopover.module.css";
 
 type DockCardPopoverProps = {
+  card: DockCardPayload;
   onClose: () => void;
 };
-
-function ExternalLinkIcon() {
-  return (
-    <svg className={styles.docLinkIcon} viewBox="0 0 16 16" aria-hidden>
-      <path
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.25"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M6.5 3.5H3.75A1.25 1.25 0 0 0 2.5 4.75v7.5A1.25 1.25 0 0 0 3.75 13.5h7.5a1.25 1.25 0 0 0 1.25-1.25V9.5M9 2.5h4.5V7M13.5 2.5 7.5 8.5"
-      />
-    </svg>
-  );
-}
 
 function CloseIcon() {
   return (
@@ -36,7 +24,7 @@ function CloseIcon() {
   );
 }
 
-export function DockCardPopover({ onClose }: DockCardPopoverProps) {
+export function DockCardPopover({ card, onClose }: DockCardPopoverProps) {
   const stopBubble = (e: ReactPointerEvent | MouseEvent) => {
     e.stopPropagation();
   };
@@ -49,7 +37,7 @@ export function DockCardPopover({ onClose }: DockCardPopoverProps) {
         exit={{ opacity: 0, y: -8, scale: 0.96 }}
         transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
         role="dialog"
-        aria-label="Gitlab integration details"
+        aria-label={`${card.subtitle} integration details`}
         onPointerDown={stopBubble}
         onClick={stopBubble}
       >
@@ -65,21 +53,17 @@ export function DockCardPopover({ onClose }: DockCardPopoverProps) {
 
           <div className={styles.header}>
             <div className={styles.headerBrand}>
-              <img src={gitlabIcon} alt="" className={styles.brandIcon} />
-              <span className={styles.brandTitle}>Gitlab Integration</span>
+              <img src={card.icon} alt="" className={styles.brandIcon} />
+              <div className={styles.headerText}>
+                <span className={styles.projectName}>{card.subtitle}</span>
+                <span className={styles.brandTitle}>{integrationTitle(card)}</span>
+              </div>
             </div>
           </div>
 
-          <p className={styles.description}>
-            Automate software delivery, boost productivity, and secure your
-            end-to-end software supply chain with the most comprehensive
-            AI-powered DevSecOps platform.
-          </p>
+          <p className={styles.description}>{card.description}</p>
 
-          <span className={styles.docLink}>
-            <ExternalLinkIcon />
-            View Documentation
-          </span>
+          <IntegrationDocLink href={card.docUrl} />
 
           <h3 className={styles.sectionTitle}>Connect</h3>
           <p className={styles.sectionBody}>

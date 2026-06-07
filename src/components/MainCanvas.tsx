@@ -10,6 +10,7 @@ import styles from "./MainCanvas.module.css";
 
 type MainCanvasProps = {
   linkedCard: DockCardPayload | null;
+  selectedCard: DockCardPayload;
   onLink: (card: DockCardPayload) => void;
   disconnecting: boolean;
   onStartDisconnect: () => void;
@@ -23,6 +24,7 @@ type MainCanvasProps = {
 
 export function MainCanvas({
   linkedCard,
+  selectedCard,
   onLink,
   disconnecting,
   onStartDisconnect,
@@ -130,15 +132,19 @@ export function MainCanvas({
             </span>
           </button>
           <AnimatePresence>
-            {successPopoverOpen && (
+            {successPopoverOpen && linkedCard && (
               <IntegrationSuccessPopover
+                card={linkedCard}
                 onClose={() => onSuccessPopoverChange(false)}
                 onDisconnect={handleDisconnect}
                 disconnecting={disconnecting}
               />
             )}
             {!successPopoverOpen && popoverOpen && (
-              <DockCardPopover onClose={() => onPopoverChange(false)} />
+              <DockCardPopover
+                card={selectedCard}
+                onClose={() => onPopoverChange(false)}
+              />
             )}
           </AnimatePresence>
         </div>

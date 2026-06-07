@@ -1,9 +1,12 @@
 import { motion } from "framer-motion";
 import { useState, type MouseEvent, type PointerEvent as ReactPointerEvent } from "react";
-import gitlabIcon from "../assets/dock/gitlab.svg";
+import { integrationTitle } from "../data/dockCards";
+import { IntegrationDocLink } from "./IntegrationDocLink";
+import type { DockCardPayload } from "./NodeDiagram";
 import styles from "./IntegrationSuccessPopover.module.css";
 
 type IntegrationSuccessPopoverProps = {
+  card: DockCardPayload;
   onClose: () => void;
   onDisconnect?: () => void;
   disconnecting?: boolean;
@@ -60,6 +63,7 @@ function Toggle({ checked, onChange, label }: ToggleProps) {
 }
 
 export function IntegrationSuccessPopover({
+  card,
   onClose,
   onDisconnect,
   disconnecting = false,
@@ -79,7 +83,7 @@ export function IntegrationSuccessPopover({
       exit={{ opacity: 0, y: -8, scale: 0.96 }}
       transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
       role="dialog"
-      aria-label="Gitlab integration connected"
+      aria-label={`${card.subtitle} integration connected`}
       onPointerDown={stopBubble}
       onClick={stopBubble}
     >
@@ -95,16 +99,17 @@ export function IntegrationSuccessPopover({
 
         <div className={styles.header}>
           <div className={styles.headerBrand}>
-            <img src={gitlabIcon} alt="" className={styles.brandIcon} />
-            <span className={styles.brandTitle}>Gitlab Integration</span>
+            <img src={card.icon} alt="" className={styles.brandIcon} />
+            <div className={styles.headerText}>
+              <span className={styles.projectName}>{card.subtitle}</span>
+              <span className={styles.brandTitle}>{integrationTitle(card)}</span>
+            </div>
           </div>
         </div>
 
-        <p className={styles.description}>
-          Automate software delivery, boost productivity, and secure your
-          end-to-end software supply chain with the most comprehensive
-          AI-powered DevSecOps platform.
-        </p>
+        <p className={styles.description}>{card.description}</p>
+
+        <IntegrationDocLink href={card.docUrl} />
 
         <div className={styles.successStatus}>
           <span className={styles.successIcon}>

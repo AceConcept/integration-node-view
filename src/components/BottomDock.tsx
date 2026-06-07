@@ -1,46 +1,15 @@
 import { motion } from "framer-motion";
 import { useRef, useState, type DragEvent, type RefObject } from "react";
-import gitlabIcon from "../assets/dock/gitlab.svg";
+import { DOCK_CARDS } from "../data/dockCards";
 import plusIcon from "../assets/dock/plus.svg";
 import { DRAG_TYPE, type DockCardPayload } from "./NodeDiagram";
 import styles from "./BottomDock.module.css";
 
-const CARDS: DockCardPayload[] = [
-  {
-    id: "gitlab-1",
-    title: "Gitlab Project",
-    subtitle: "Custom Ark",
-    path: "dasdasd //",
-  },
-  {
-    id: "gitlab-2",
-    title: "Gitlab Project",
-    subtitle: "Custom Ark",
-    path: "dasdasd //",
-  },
-  {
-    id: "gitlab-3",
-    title: "Gitlab Project",
-    subtitle: "Custom Ark",
-    path: "dasdasd //",
-  },
-  {
-    id: "gitlab-4",
-    title: "Gitlab Project",
-    subtitle: "Custom Ark",
-    path: "dasdasd //",
-  },
-  {
-    id: "gitlab-5",
-    title: "Gitlab Project",
-    subtitle: "Custom Ark",
-    path: "dasdasd //",
-  },
-];
+const CARDS = DOCK_CARDS;
 
 type BottomDockProps = {
   disabled?: boolean;
-  onCardClick?: () => void;
+  onCardClick?: (card: DockCardPayload) => void;
   containerRef?: RefObject<HTMLDivElement | null>;
 };
 
@@ -53,12 +22,12 @@ export function BottomDock({ disabled, onCardClick, containerRef }: BottomDockPr
     document.body.classList.remove("dockDragging");
   };
 
-  const handleCardClick = () => {
+  const handleCardClick = (card: DockCardPayload) => {
     if (skipClickRef.current) {
       skipClickRef.current = false;
       return;
     }
-    onCardClick?.();
+    onCardClick?.(card);
   };
 
   const startDrag = (e: DragEvent<HTMLDivElement>, card: DockCardPayload) => {
@@ -133,24 +102,27 @@ export function BottomDock({ disabled, onCardClick, containerRef }: BottomDockPr
               <div
                 className={`${styles.cardInner} ${draggingCardId === card.id ? styles.cardInnerDragging : ""}`}
                 draggable={!disabled}
-                onClick={handleCardClick}
+                onClick={() => handleCardClick(card)}
                 onDragStart={(e) => startDrag(e, card)}
                 onDragEnd={endDrag}
               >
                 <div className={styles.iconBox}>
                   <div className={styles.iconBoxInner}>
                     <img
-                      src={gitlabIcon}
+                      src={card.icon}
                       alt=""
                       className={styles.dockIcon}
                       draggable={false}
                     />
                   </div>
-                  <span className={styles.iconAccent} aria-hidden />
+                  <span
+                    className={styles.iconAccent}
+                    style={{ backgroundColor: card.accentColor }}
+                    aria-hidden
+                  />
                 </div>
                 <div className={styles.cardText}>
                   <span className={styles.cardTitle}>{card.subtitle}</span>
-                  <span className={styles.cardPath}>{card.path}</span>
                   <span className={styles.cardLabel}>{card.title}</span>
                 </div>
               </div>

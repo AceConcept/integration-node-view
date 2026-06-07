@@ -11,7 +11,10 @@ export type DockCardPayload = {
   id: string;
   title: string;
   subtitle: string;
-  path: string;
+  icon: string;
+  accentColor: string;
+  description: string;
+  docUrl: string;
 };
 
 type NodeDiagramProps = {
@@ -88,6 +91,7 @@ const lineEase = [0.42, 0, 0.2, 1] as const;
 
 export function NodeDiagram({
   linked,
+  linkedCard,
   disconnecting = false,
   onLink,
   onUnlink,
@@ -256,13 +260,17 @@ export function NodeDiagram({
               >
                 <div className={styles.slotIconBoxInner}>
                   <img
-                    src={gitlabIcon}
+                    src={linkedCard?.icon ?? gitlabIcon}
                     alt=""
                     className={styles.slotDockIcon}
                     draggable={false}
                   />
                 </div>
-                <span className={styles.slotIconAccent} aria-hidden />
+                <span
+                  className={styles.slotIconAccent}
+                  style={{ backgroundColor: linkedCard?.accentColor ?? "#fc6d26" }}
+                  aria-hidden
+                />
               </motion.div>
               <button
                 type="button"
