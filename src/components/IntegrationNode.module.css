@@ -24,15 +24,11 @@
   place-items: center;
 }
 
-.githubIcon {
-  width: 2.5rem; /* 40px */
-  height: 2.5rem;
-  color: #24292f;
-}
-
-.gitlabIcon {
-  width: 2.5rem;
-  height: 2.5rem;
+.nodeIcon {
+  width: 3rem; /* 48px @ 16px root */
+  height: 3rem;
+  display: block;
+  object-fit: contain;
 }
 
 .labels {

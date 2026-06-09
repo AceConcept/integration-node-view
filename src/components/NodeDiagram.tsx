@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useState, type DragEvent } from "react";
 import emptySlotIcon from "../assets/dock/empty-slot.svg";
+import { NODE_ICONS } from "../assets/nodeIcons";
 import { IntegrationNode } from "./IntegrationNode";
 import integrationNodeStyles from "./IntegrationNode.module.css";
 import styles from "./NodeDiagram.module.css";
@@ -230,12 +231,14 @@ export function NodeDiagram({
         <div className={styles.row}>
           <IntegrationNode
             className={`${styles.diagramNode} ${styles.nodeX90}`}
+            icon={NODE_ICONS.upstream}
             title="Staging/Release Upstream"
             subtitle="External repo"
             titleClassName={integrationNodeStyles.titleWrap}
           />
           <IntegrationNode
             className={`${styles.diagramNode} ${styles.nodeX470}`}
+            icon={NODE_ICONS.core}
             title="Core"
             subtitle="Internal Monorepo"
           />
@@ -244,6 +247,7 @@ export function NodeDiagram({
         <div className={styles.row}>
           <IntegrationNode
             className={`${styles.diagramNode} ${styles.nodeX470}`}
+            icon={NODE_ICONS.router}
             title="Integration Router"
             subtitle="Aggregator"
           />
@@ -252,6 +256,7 @@ export function NodeDiagram({
         <div className={styles.row}>
           <IntegrationNode
             className={`${styles.diagramNode} ${styles.nodeX850}`}
+            icon={NODE_ICONS.api}
             title="Public API"
             subtitle="Webhook Services"
           />

@@ -1,10 +1,9 @@
-import { GitHubIcon, GitLabIcon } from "./icons";
 import styles from "./IntegrationNode.module.css";
 
 type IntegrationNodeProps = {
   title: string;
   subtitle: string;
-  variant?: "github" | "gitlab";
+  icon: string;
   className?: string;
   titleClassName?: string;
 };
@@ -12,7 +11,7 @@ type IntegrationNodeProps = {
 export function IntegrationNode({
   title,
   subtitle,
-  variant = "github",
+  icon,
   className,
   titleClassName,
 }: IntegrationNodeProps) {
@@ -20,11 +19,7 @@ export function IntegrationNode({
     <div className={[styles.node, className].filter(Boolean).join(" ")}>
       <div className={styles.nodeFrame}>
         <div className={styles.iconBox}>
-          {variant === "github" ? (
-            <GitHubIcon className={styles.githubIcon} />
-          ) : (
-            <GitLabIcon className={styles.gitlabIcon} />
-          )}
+          <img src={icon} alt="" className={styles.nodeIcon} draggable={false} />
         </div>
       </div>
       <div className={styles.labels}>
