@@ -38,8 +38,8 @@ const Y = {
   row2Top: 212,
   row2Bottom: 338,
   row3Top: 424, /* top of row 3 — top of node-4 icon frame */
+  row3Center: 487, /* vertical center of row 3 — Public API icon center */
   row3Bottom: 550,
-  branchNode4Junction: 381, /* mid-gap between node-3 bottom and node-4 top */
   slotTop: 636,
   node3Mid: 275,
 } as const;
@@ -48,13 +48,13 @@ const X = {
   node1: 90,
   center: 470, /* horizontal center of 940px diagram — aligns with dock */
   node3Left: 407, /* center 470 − half of 126px frame */
-  node4: 850,
+  node4Left: 787, /* Public API center 850 − half of 126px frame */
 } as const;
 
 /** Lines radiate upward from the empty slot (top-center) */
 const PATHS = {
   trunkFromSlot: `M ${X.center} ${Y.slotTop} L ${X.center} ${Y.row2Bottom} L ${X.center} ${Y.row2Top} L ${X.center} ${Y.row1Bottom} L ${X.center} ${Y.row1Center}`,
-  branchNode4: `M ${X.center} ${Y.branchNode4Junction} L ${X.node4} ${Y.branchNode4Junction} L ${X.node4} ${Y.row3Top}`,
+  branchNode4: `M ${X.center} ${Y.row3Center} L ${X.node4Left} ${Y.row3Center}`,
   branchNode1: `M ${X.node3Left} ${Y.node3Mid} L ${X.node1} ${Y.node3Mid} L ${X.node1} ${Y.row1Bottom}`,
 } as const;
 
@@ -72,14 +72,14 @@ function trunkProgressAtY(y: number) {
   return (Y.slotTop - y) / TRUNK_LENGTH;
 }
 
-const BRANCH4_DELAY = TRUNK_DURATION * trunkProgressAtY(Y.branchNode4Junction);
+const BRANCH4_DELAY = TRUNK_DURATION * trunkProgressAtY(Y.row3Center);
 const BRANCH1_DELAY = TRUNK_DURATION * trunkProgressAtY(Y.node3Mid);
 
 /** Reverse: branches retract as the trunk passes each junction on the way back to the slot. */
 const UNLINK_BRANCH1_DELAY =
   TRUNK_DURATION * (1 - trunkProgressAtY(Y.node3Mid));
 const UNLINK_BRANCH4_DELAY =
-  TRUNK_DURATION * (1 - trunkProgressAtY(Y.branchNode4Junction));
+  TRUNK_DURATION * (1 - trunkProgressAtY(Y.row3Center));
 
 const LINK_ANIMATION_DURATION = Math.max(
   TRUNK_DURATION,
