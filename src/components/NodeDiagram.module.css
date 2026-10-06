@@ -81,6 +81,7 @@
   height: var(--node-outer-size);
   box-sizing: border-box;
   border: var(--node-frame) dashed var(--node-frame-color);
+  user-select: none;
   display: grid;
   place-items: center;
   background: rgb(255 255 255 / 60%);

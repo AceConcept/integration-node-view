@@ -21,6 +21,7 @@
   padding: 0 2rem;
   background: rgb(216 216 216 / 40%); /* #D8D8D8 @ 40% */
   border-bottom: 0.0625rem solid #c3c3c3;
+  user-select: none;
 }
 
 .breadcrumb {

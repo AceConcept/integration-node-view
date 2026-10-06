@@ -6,6 +6,7 @@
   color: #383838;
   background: var(--color-bg-sidebar);
   border-right: 0.0625rem solid #ebebeb;
+  user-select: none;
   padding-top: 2.1875rem; /* 35px @ 16px root */
   padding-bottom: 0;
   padding-left: 0;
